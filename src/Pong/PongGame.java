@@ -41,9 +41,6 @@ public class PongGame extends JPanel implements ActionListener{
         Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allows window to be closed
 
 
-        //JB - don't need the next line as you're painting the panel background black anyway
-        //Window.setBackground(Color.BLACK); //sets the JFrame window background colour to black
-
         Window.setResizable(false); //enforces the same size window
 
         //Renderer renderer = new Renderer(); //creates a new renderer object from the Renderer class - JB, this needs to be removed so that the actionPerformed() references the "global"
