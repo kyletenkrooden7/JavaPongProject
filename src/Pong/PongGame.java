@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
 /*****************************************************
@@ -18,7 +20,7 @@ import java.awt.event.ActionListener;
  *    Modified:  Code refactored, design altered
  *****************************************************/
 
-public class PongGame extends JPanel implements ActionListener{
+public class PongGame extends JPanel implements ActionListener, KeyListener {
     //JB - you won't need a pongGame attribute here now given the way I've re-arranged things
     //public static PongGame pongGame; //JB - all attributes here should be private too (can leave the constants public if you wish so they can be accessed directly within Paddle class)
 
@@ -26,6 +28,7 @@ public class PongGame extends JPanel implements ActionListener{
     //public Renderer renderer; //creating  a renderer variable - JB - don't need this now as the Renderer class isn't being used
     public Paddle LeftPaddle; //creating variable called LeftPaddle from instantiated Paddle Class
     public Paddle RightPaddle;
+    public Puck puck;
 
     public PongGame()
     {
@@ -81,6 +84,7 @@ public class PongGame extends JPanel implements ActionListener{
 
         RightPaddle.render(g);
         LeftPaddle.render(g);
+        puck.render(g);
 
 
     }
@@ -89,6 +93,7 @@ public class PongGame extends JPanel implements ActionListener{
     {
         LeftPaddle = new Paddle("Left");
         RightPaddle = new Paddle("Right");
+        puck = new Puck(this);
     }
 
 
@@ -108,7 +113,23 @@ public class PongGame extends JPanel implements ActionListener{
 
         render(g);
     }
-
     //End of [non-original or refactored] code
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+
 
 }

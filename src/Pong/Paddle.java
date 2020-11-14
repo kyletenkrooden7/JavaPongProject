@@ -3,11 +3,11 @@ package Pong;
 import java.awt.*;
 
 public class Paddle {
-    public int x; //JB - be sure to make all these attributes private for encapsulation reasons
-    public int y;
-    public int PaddleWidth=35;
-    public int PaddleHeight=120;
-    public String PaddleLeftOrRight;
+    private int x;
+    private int y;
+    private int PaddleWidth=35;
+    private int PaddleHeight=120;
+    private String PaddleLeftOrRight;
 
     /*****************************************************
      *    Code from lecturer
@@ -33,6 +33,7 @@ public class Paddle {
             //this.x = PaddleWidth;
             this.x = 0; //want this paddle to be up again the edge of the window
         }
+        this.y = PongGame.HEIGHT/2 - this.PaddleHeight/2;
 
     }
 
