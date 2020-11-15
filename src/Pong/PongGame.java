@@ -25,10 +25,14 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     //public static PongGame pongGame; //JB - all attributes here should be private too (can leave the constants public if you wish so they can be accessed directly within Paddle class)
 
     public final static int WIDTH=900, HEIGHT=500; //JB - make these constants here (sorts out a null-pointer exception that arises in Paddle class)
-    //public Renderer renderer; //creating  a renderer variable - JB - don't need this now as the Renderer class isn't being used
+
     public Paddle LeftPaddle; //creating variable called LeftPaddle from instantiated Paddle Class
     public Paddle RightPaddle;
     public Puck puck;
+    public boolean a,z,k,m; //this represents the controls for the game
+                            //a and z allow you to move LeftPaddle up and down
+                            // k and m allow you to move RightPaddle up and down
+
 
     public PongGame()
     {
@@ -54,7 +58,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         setPreferredSize(new Dimension(WIDTH,HEIGHT)); //JB - need to do this to ensure the panel that will display the game is the dimensions you are looking for
                                                        //because otherwise some of the panel will be missing due to the fact that the JFrame borders "eats up" some
                                                        //of the pixels allocated
-
+        Window.addKeyListener(this);
         Window.add(this); //Adds the game panel to the window
 
 
@@ -71,12 +75,23 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public static void main(String[] args) //main method
     {
         PongGame pongGame = new PongGame();//creates a new instance of the pong game
+
     }
 
     public void render(Graphics g)
     {
         //JB - just ensure you use the "How to Cite Source Code" document to put in this reference in the standard way (as I did above)
-        //Looked over the graphics class here : https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html and https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
+
+         /*****************************************************
+         *    Obtained knowledge of graphics classes here: https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html and https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
+         *    Title: lines 97 and 98 [.setColor keyword and .fillRect]
+         *    Author: Oracle
+         *    Site owner/sponsor:  NA
+         *    Date: 13/11/2020
+         *    Code version:  NA
+         *    Availability:  NA
+          *        Modified:  obtained understanding of class API, code implemented from there
+        // *****************************************************/
 
         g.setColor(Color.BLACK); //predefined setColor function to set colour of input argument g to black
         g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT); //x and y are the coordinates of the point of the rectangle, where as the width and height are that defined in
@@ -100,7 +115,9 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) // needed for when a user interacts with the game
     {
         repaint();
+       refresh();
     }
+
 
     // public void checkCollisions{}
 
@@ -115,18 +132,76 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     }
     //End of [non-original or refactored] code
 
+    public void refresh()
+    {
+
+        if(k) //PaddlePaddle up
+          {
+        RightPaddle.movePaddle(true); //passes movePaddle in Paddle.java a boolean value of true, meaning "UP"
+          }
+        if(m)//RightPaddle down
+        {
+            RightPaddle.movePaddle(false);//passes movePaddle in Paddle.java a boolean value of false, meaning "NOT UP", therefore "DOWN"
+        }
+        if(a) //LeftPaddle up
+        {
+            LeftPaddle.movePaddle(true);
+        }
+        if(z) //LeftPaddle down
+        {
+            LeftPaddle.movePaddle(false);
+        }
+
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { //key listener for when a user uses the virtual keyboard
+
+
+        if (e.getKeyCode() == KeyEvent.VK_K) //When a user "Presses" the key "K"
+        {
+            k = true; // passes true to if statement and therefore the if statement executes
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_M)
+        {
+            m = true;
+        }
+            else if (e.getKeyCode() == KeyEvent.VK_A)
+            {
+                a = true;
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_Z)
+            {
+                z = true;
+            }
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) { //keylistener for releasing a key
+
+        if (e.getKeyCode() == KeyEvent.VK_K)
+        {
+            k = false; //passes "if statement" a false boolean
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_M)
+        {
+            m = false;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_A)
+        {
+            a = false;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_Z)
+        {
+            z = false;
+        }
+
 
     }
 
