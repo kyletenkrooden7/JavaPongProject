@@ -1,6 +1,12 @@
 package Pong;
 
 public class Score {
-    //LeftPaddleScore
-    //RightPaddleScore
-}
+    private int LeftPaddleScore;
+    private int RightPaddleScore;
+    private PongGame pongGame;
+
+
+
+    }
+
+

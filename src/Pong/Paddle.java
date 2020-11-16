@@ -4,10 +4,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Paddle {
-    private int x;
-    private int y;
-    private int PaddleWidth=35;
-    private int PaddleHeight=120;
+    public int x, y;
+   // x and y to know where the paddle is
+    public int PaddleWidth=35;
+    public int PaddleHeight=120;
     private String PaddleLeftOrRight;
     private int distance = 10;
 
