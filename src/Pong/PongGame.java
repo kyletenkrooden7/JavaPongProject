@@ -30,6 +30,8 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public Paddle LeftPaddle; //creating variable called LeftPaddle from instantiated Paddle Class
     public Paddle RightPaddle;
      public Puck puck;
+     public boolean showMainMenu=true;
+
 
 
     public boolean a,z,k,m; //this represents the controls for the game
@@ -103,11 +105,18 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT); //x and y are the coordinates of the point of the rectangle, where as the width and height are that defined in
 
 
-        RightPaddle.render(g);
-        LeftPaddle.render(g);
-        puck.render(g);
-        puck.update();
+        if(showMainMenu == true)
+        {
+            MainMenu(g);
+        }
+        if(showMainMenu == false)
+        {
 
+           RightPaddle.render(g);
+           LeftPaddle.render(g);
+           puck.render(g);
+           puck.update();
+       }
 
     }
 
@@ -122,8 +131,13 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     public void actionPerformed(ActionEvent e) // needed for when a user interacts with the game
     {
+        if(showMainMenu == false)
+        {
+            refresh();
+        }
+
         repaint();
-       refresh();
+
     }
 
 
@@ -137,6 +151,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         super.paintComponent(g);
 
         render(g);
+
     }
     //End of [non-original or refactored] code
 
@@ -162,9 +177,14 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    public void MainMenu()
+    public void MainMenu(Graphics g)
     {
-           //display welcome to PONG (space to start)
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Calibri", 1, 30));
+        g.drawString("Welcome To Pong",WIDTH/2 - 110,100);
+
+        g.setFont(new Font("Calibri", 1, 25));
+        g.drawString("Press Space To Play",WIDTH/2 - 100,400);
 
     }
 
@@ -218,6 +238,14 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         else if (e.getKeyCode() == KeyEvent.VK_Z)
         {
             z = false;
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            showMainMenu =false;
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            showMainMenu = true;
         }
 
 
