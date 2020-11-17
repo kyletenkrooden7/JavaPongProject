@@ -53,6 +53,7 @@ public class Puck {
 
             if (PaddleHit(LeftPaddle) == "hit")
             {
+
                 this.PuckXDirection *= -1;
                 this.PuckYDirection *=  -1;
                 PuckSpeed++;
@@ -60,8 +61,12 @@ public class Puck {
 
             else if (PaddleHit(LeftPaddle) == "No hit")
             {
-                NewPuck();
+               // NewPuck();
+
+               if(this.x < 0)
+                   NewPuck();
                 //iterate left paddles score
+              //  System.out.println("hek");
 
             }
 
@@ -75,38 +80,60 @@ public class Puck {
             }
             else if (PaddleHit(RightPaddle) == "No hit")
             {
-                NewPuck();
-                //iterate Right paddle score
 
+
+                if(this.x > PongGame.WIDTH)
+                    NewPuck();
+
+                //iterate Right paddle score
             }
+
 
 
     }
 
     public String PaddleHit(Paddle p)
-    {    //puck x pos       //edge of Left paddle
-       if(this.x < p.x + p.PaddleWidth &&
-                //edge of puck            //edge of right paddle
-                this.x + PuckWidth > p.x + p.PaddleWidth &&
-               //taking height into consideration (if without, the whole left and right side will be paddles)
-                this.y + PuckHeight < p.y + p.PaddleHeight &&
-                //puck y pos //paddle y pos
-                this.y + PuckHeight > p.y)
+
+    {
+         String result ="";
 
 
-
-            if(p.y > y + PuckHeight || y > p.y + PuckHeight)
-            { //if paddle y coord is greater than the y coord of puck + the pucks height
-                return "hit";
-            }
-
-            else{
-                return "No hit";
-            }
+          if(PuckXDirection < 0)
+          {
+              if(this.x <= this.LeftPaddle.x + this.LeftPaddle.PaddleWidth &&
+              this.y >= this.LeftPaddle.y && this.y <= this.LeftPaddle.y +
+                      this.LeftPaddle.PaddleHeight)
+                 result = "hit";
 
 
-        return "";
+              else
+                result = "No hit";
+
+          }
+
+       // return "";
+
+        else if (PuckXDirection > 0)
+        {
+            if (this.x >= this.RightPaddle.x + this.RightPaddle.PaddleWidth &&
+                this.y >= this.RightPaddle.y && this.y <= this.RightPaddle.y +
+                this.RightPaddle.PaddleHeight)
+
+            result = "hit";
+
+            else
+
+            result = "No hit";
+        }
+
+      return result;
+
     }
+
+
+
+
+
 
     public void NewPuck() {
         this.x = pongGame.WIDTH/2 - this.PuckWidth/2; //PUT PUCK IN CENTRE(WIDTH WISE)
