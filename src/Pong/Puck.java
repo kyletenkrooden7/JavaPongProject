@@ -12,7 +12,7 @@ public class Puck {
     private double PuckXDirection=-2;
     private PongGame pongGame;
     private Paddle LeftPaddle, RightPaddle; //we need the paddles for when a ball makes contact with the paddle
-    private int PuckSpeed =4;
+    private int PuckSpeed =4, hit = 0;
    // private Score score;
 
     public Puck(PongGame pongGame, Paddle LeftPaddle, Paddle RightPaddle)
@@ -53,10 +53,26 @@ public class Puck {
 
             if (PaddleHit(LeftPaddle) == "hit")
             {
-
+                hit++;
+                System.out.println(hit);
                 this.PuckXDirection *= -1;
-                this.PuckYDirection *=  -1;
+                this.PuckYDirection *= ((Math.random()*-1) +0.5);
+
+                if(hit==5)
+                {
+                    this.PuckYDirection = -2;
+                }
+
+                else if(hit == 8)
+                {
+                    this.PuckYDirection = -2;
+                }
                 PuckSpeed++;
+
+                if(this.y ==0)
+                {
+                    this.PuckYDirection = 2;
+                }
             }
 
             else if (PaddleHit(LeftPaddle) == "No hit")
@@ -65,6 +81,7 @@ public class Puck {
             if(this.x < 0) {
                 //System.out.println("Right Paddle Score");
                 NewPuck();
+                hit = 0;
             }
                 //iterate left paddles score
 
@@ -73,9 +90,21 @@ public class Puck {
 
             if (PaddleHit(RightPaddle) == "hit")
             {
+
+
                 this.PuckXDirection *= -1;
-                this.PuckYDirection *= -1;
+                this.PuckYDirection *= ((Math.random()*-1) +0.5);
+                hit++;
                 PuckSpeed++;
+
+                if(hit==5)
+                {
+                    this.PuckYDirection = -1;
+                }
+                else if(hit == 8)
+                {
+                    this.PuckYDirection*=-1.7;
+                }
 
 
             }
@@ -84,6 +113,7 @@ public class Puck {
 
                 if(this.x + this.PuckWidth > PongGame.WIDTH) //goes past width of game
                     NewPuck();
+
 
                 //iterate left paddle score
             }
@@ -139,6 +169,7 @@ public class Puck {
         this.y = pongGame.HEIGHT/2 - this.PuckWidth/2; //PUT PUCK IN CENTRE(HEIGHT WISE)
 
        PuckSpeed = 4;
+       hit=0;
     }
 
 
