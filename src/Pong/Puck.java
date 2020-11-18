@@ -62,14 +62,16 @@ public class Puck {
             else if (PaddleHit(LeftPaddle) == "No hit")
             {
                // NewPuck();
-            if(this.x < 0)
+            if(this.x < 0) {
+                //System.out.println("Right Paddle Score");
                 NewPuck();
+            }
                 //iterate left paddles score
-              //  System.out.println("hek");
+
 
             }
 
-            else if (PaddleHit(RightPaddle) == "hit")
+            if (PaddleHit(RightPaddle) == "hit")
             {
                 this.PuckXDirection *= -1;
                 this.PuckYDirection *= -1;
@@ -80,11 +82,10 @@ public class Puck {
             else if (PaddleHit(RightPaddle) == "No hit")
             {
 
+                if(this.x + this.PuckWidth > PongGame.WIDTH) //goes past width of game
+                    NewPuck();
 
-               if(this.x + this.PuckWidth >= PongGame.WIDTH)
-                   NewPuck();
-
-                //iterate Right paddle score
+                //iterate left paddle score
             }
 
 
@@ -121,8 +122,7 @@ public class Puck {
             result = "hit";
 
             else
-
-            result = "No hit";
+                result = "No hit";
         }
 
       return result;

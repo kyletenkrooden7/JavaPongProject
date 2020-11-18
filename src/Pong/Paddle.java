@@ -57,8 +57,8 @@ public class Paddle {
 
     public void movePaddle(boolean checkDirection)
     {
-        boolean up = true; //paddle can only move up or down
-        int moveUp = y - distance;
+        boolean up   = true; //paddle can only move up or down
+        int moveUp   = y - distance;
         int moveDown = y + distance;
 
         if(checkDirection == up) //if you move the paddle up
@@ -68,10 +68,9 @@ public class Paddle {
                 y = moveUp;
 
             }
-               else
-                {
+            else
                 y = 0; // if it is not positive it'll still be able to reach the top of the screen
-                }
+
         }
         else if (checkDirection != up)//if you move the paddle down
         {
