@@ -4,14 +4,26 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Paddle {
-    public int x, y;
+    private int x, y;
    // x and y to know where the paddle is
-    public int PaddleWidth=35;
-    public int PaddleHeight=120;
+    private int PaddleWidth=35;
+    private int PaddleHeight=120;
     private String PaddleLeftOrRight;
-    private int distance = 10;
+    private int distance = 15;
 
 //all private for encapsulation purposes (can be accessed only through methods of current Paddle Class)
+
+
+    public Paddle(int x, int y, int paddleWidth, int paddleHeight, String paddleLeftOrRight, int distance) {
+        setX(x);
+        setY(y);
+        setPaddleWidth(PaddleWidth);
+        setPaddleHeight(PaddleHeight);
+        setPaddleLeftOrRight(paddleLeftOrRight);
+        setDistance(distance);
+    }
+
+
     /*****************************************************
      *    Code from lecturer
      *    Title:    Paddle.java, various lines as indicated
@@ -24,15 +36,16 @@ public class Paddle {
      *    Modified:  Code refactored
      *****************************************************/
 
+
     public Paddle(String PaddleLeftOrRight)
     {
         this.PaddleLeftOrRight = PaddleLeftOrRight;
 
-        if(PaddleLeftOrRight.equals("Right")){ //JB - removed the toLowerCase() to prevent logical error
+        if(getPaddleLeftOrRight().equals("Right")){ //JB - removed the toLowerCase() to prevent logical error
             //this.x = PongGame.pongGame.width - PaddleWidth;
             this.x = PongGame.WIDTH - PaddleWidth; //JB - sorts out null-pointer excpetion that otherwise occurs
         }
-        if(PaddleLeftOrRight.equals("Left")){  //JB - as above
+        if(getPaddleLeftOrRight().equals("Left")){  //JB - as above
             //this.x = PaddleWidth;
             this.x = 0; //want this paddle to be up again the edge of the window
         }
@@ -86,4 +99,54 @@ public class Paddle {
         }
 
     }
+
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getPaddleWidth() {
+        return PaddleWidth;
+    }
+
+    public void setPaddleWidth(int paddleWidth) {
+        PaddleWidth = paddleWidth;
+    }
+
+    public int getPaddleHeight() {
+        return PaddleHeight;
+    }
+
+    public void setPaddleHeight(int paddleHeight) {
+        PaddleHeight = paddleHeight;
+    }
+
+    public String getPaddleLeftOrRight() {
+        return PaddleLeftOrRight;
+    }
+
+    public void setPaddleLeftOrRight(String paddleLeftOrRight) {
+        PaddleLeftOrRight = paddleLeftOrRight;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
 }
