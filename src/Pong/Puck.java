@@ -13,16 +13,19 @@ public class Puck {
     private Paddle LeftPaddle, RightPaddle; //we need the paddles for when a ball makes contact with the paddle
     private int PuckSpeed =4, hit = 0;
     private int LeftPaddleScore=0, RightPaddleScore=0;
+    private boolean showWinningScore=false;
 
 
-    public Puck(PongGame pongGame, Paddle LeftPaddle, Paddle RightPaddle)
+
+
+    public Puck(PongGame pongGame, Paddle LeftPaddle, Paddle RightPaddle, int LeftPaddleScore, int RightPaddleScore)
     {
 
-        this.pongGame = pongGame;
-        this.LeftPaddle = LeftPaddle;
-        this.RightPaddle = RightPaddle;
-
-
+        setPongGame(pongGame);
+        setLeftPaddle(LeftPaddle);
+        setRightPaddle(RightPaddle);
+        setLeftPaddleScore(LeftPaddleScore);
+        setRightPaddleScore(RightPaddleScore);
         NewPuck();
     }
 
@@ -122,7 +125,8 @@ public class Puck {
                 if(this.x + this.PuckWidth > PongGame.WIDTH) //goes past width of game
                 {
                     NewPuck();
-                    LeftPaddleScore++;
+                     LeftPaddleScore ++;
+
                 }
 
             }
@@ -136,9 +140,9 @@ public class Puck {
 
          if(PuckXDirection < 0) //ball moving left
           {
-              if(this.x <= this.LeftPaddle.getX() + this.LeftPaddle.getPaddleWidth() &&
-                 this.x + this.PuckWidth + this.y >= this.LeftPaddle.getY() &&
-                 this.y <= this.LeftPaddle.getY() +this.LeftPaddle.getPaddleHeight())
+              if(this.x <= getLeftPaddle().getX() + getLeftPaddle().getPaddleWidth() &&
+                 this.x + this.PuckWidth + this.y >= getLeftPaddle().getY() &&
+                 this.y <= getLeftPaddle().getY() + getLeftPaddle().getPaddleHeight())
 
                  result = "hit";
 
@@ -151,9 +155,9 @@ public class Puck {
 
         else if (PuckXDirection > 0) //ball moving to the right
         {
-            if (this.x + this.PuckWidth >= this.RightPaddle.getX() && this.x <= this.RightPaddle.getX() &&
-                this.y >= this.RightPaddle.getY() && this.y <= this.RightPaddle.getY() +
-                this.RightPaddle.getPaddleHeight())
+            if (this.x + this.PuckWidth >= getRightPaddle().getX() && this.x <= getRightPaddle().getX() &&
+                this.y >= getRightPaddle().getY() && this.y <= getRightPaddle().getY() +
+                getRightPaddle().getPaddleHeight())
 
                 result = "hit";
 
@@ -187,44 +191,54 @@ public class Puck {
         g.drawString(String.valueOf(LeftPaddleScore), 0 + (pongGame.WIDTH/10), 50);
         g.drawString(String.valueOf(RightPaddleScore), pongGame.WIDTH - (pongGame.WIDTH/8), 50);
 
-      /*  if(LeftPaddleScore == 2)
+        if(getRightPaddleScore() == 2 || getLeftPaddleScore() == 2)
         {
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT);
+            showWinningScore=true;
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Times New Roman",Font.PLAIN,50));
-            g.drawString("Left Player Wins!!", pongGame.WIDTH/4 + 20,pongGame.HEIGHT/2);
+        }
+    }
+    public Paddle getLeftPaddle() {
+        return LeftPaddle;
+    }
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Times New Roman",Font.PLAIN,35));
-            g.drawString("Press Space To Play Another Game", pongGame.WIDTH/5,pongGame.HEIGHT/2 + 50);
+    public void setLeftPaddle(Paddle leftPaddle) {
+        LeftPaddle = leftPaddle;
+    }
 
+    public Paddle getRightPaddle() {
+        return RightPaddle;
+    }
 
-            LeftPaddleScore=0;
-            RightPaddleScore=0;
+    public void setRightPaddle(Paddle rightPaddle) {
+        RightPaddle = rightPaddle;
+    }
 
-        }*/
+    public PongGame getPongGame() {
+        return pongGame;
+    }
 
-        /*if(RightPaddleScore == 2)
-        {
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT);
+    public void setPongGame(PongGame pongGame) {
+        this.pongGame = pongGame;
+    }
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Times New Roman",Font.PLAIN,50));
-            g.drawString("Right Player Wins!!", pongGame.WIDTH/4 + 20,pongGame.HEIGHT/2);
+    public int getLeftPaddleScore() {
+        return LeftPaddleScore;
+    }
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Times New Roman",Font.PLAIN,35));
-            g.drawString("Press Space To Play Another Game", pongGame.WIDTH/5,pongGame.HEIGHT/2 + 50);
+    public void setLeftPaddleScore(int leftPaddleScore) {
+        LeftPaddleScore = leftPaddleScore;
+    }
 
+    public int getRightPaddleScore() {
+        return RightPaddleScore;
+    }
 
-            LeftPaddleScore=0;
-            RightPaddleScore=0;
+    public void setRightPaddleScore(int rightPaddleScore) {
+        RightPaddleScore = rightPaddleScore;
+    }
 
-        }*/
-
+    public boolean isShowWinningScore() {
+        return showWinningScore;
     }
 
 }

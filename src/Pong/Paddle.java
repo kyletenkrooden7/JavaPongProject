@@ -11,6 +11,7 @@ public class Paddle {
     private String PaddleLeftOrRight;
     private int distance = 15;
 
+
 //all private for encapsulation purposes (can be accessed only through methods of current Paddle Class)
 
 
@@ -43,13 +44,13 @@ public class Paddle {
 
         if(getPaddleLeftOrRight().equals("Right")){ //JB - removed the toLowerCase() to prevent logical error
             //this.x = PongGame.pongGame.width - PaddleWidth;
-            this.x = PongGame.WIDTH - PaddleWidth; //JB - sorts out null-pointer excpetion that otherwise occurs
+            setX(PongGame.WIDTH - PaddleWidth);  //JB - sorts out null-pointer excpetion that otherwise occurs
         }
         if(getPaddleLeftOrRight().equals("Left")){  //JB - as above
             //this.x = PaddleWidth;
-            this.x = 0; //want this paddle to be up again the edge of the window
+            setX(0); //want this paddle to be up again the edge of the window
         }
-        this.y = PongGame.HEIGHT/2 -  this.PaddleHeight/2;
+        setY(PongGame.HEIGHT/2 -  this.PaddleHeight/2);
       //PongGame.HEIGHT/2 -> places the paddle half way down the screen in relation to the top of the paddle
       // therefore top of paddle will be in middle, but we want the the middle coordinates of the paddle to be in the
       // center.
@@ -59,7 +60,7 @@ public class Paddle {
     }
 
 
-    //End of [non-original or refactored] code
+//End of [non-original or refactored] code
 
     public void render(Graphics g)
     {
@@ -71,8 +72,8 @@ public class Paddle {
     public void movePaddle(boolean checkDirection)
     {
         boolean up   = true; //paddle can only move up or down
-        int moveUp   = y - distance;
-        int moveDown = y + distance;
+        int moveUp   = y - getDistance();
+        int moveDown = y + getDistance();
 
         if(checkDirection == up) //if you move the paddle up
         {
@@ -99,7 +100,6 @@ public class Paddle {
         }
 
     }
-
 
     public int getX() {
         return x;

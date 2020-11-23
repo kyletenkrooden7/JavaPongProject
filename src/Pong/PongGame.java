@@ -33,6 +33,8 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                             // k and m allow you to move RightPaddle up and down
     private String Player1="", Player2="";
     private String ListOfScores;
+    private boolean showScores;
+
 
 
     public PongGame()
@@ -83,11 +85,10 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         //JB - just ensure you use the "How to Cite Source Code" document to put in this reference in the standard way (as I did above)
 
-         /*****************************************************
+        /*****************************************************
          *    Obtained knowledge of graphics classes here: https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html and https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
          *    Title: [.setColor keyword and .fillRect]
          *    Author: Oracle
@@ -95,36 +96,43 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
          *    Date: 13/11/2020
          *    Code version:  NA
          *    Availability:  NA
-          *        Modified:  obtained understanding of class API, code implemented from there
-        // *****************************************************/
+         *        Modified:  obtained understanding of class API, code implemented from there
+         // *****************************************************/
 
         g.setColor(Color.BLACK); //predefined setColor function to set colour of input argument g to black
         g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT); //x and y are the coordinates of the point of the rectangle
 
 
-
-        if(showMainMenu == true)
-        {
+        if (showMainMenu == true) {
             MainMenu(g);
 
         }
-        if(showMainMenu == false)
-        {
+        if (showMainMenu == false && showScores==false) {
 
-           RightPaddle.render(g);
-           LeftPaddle.render(g);
-           puck.render(g);
-           puck.update();
+            RightPaddle.render(g);
+            LeftPaddle.render(g);
+            puck.render(g);
+            puck.update();
+
+            if(puck.isShowWinningScore())
+            {
+                showScores=true;
+
+            }
+        }
+        if(showScores == true)
+        {
+          showWinningScore(g);
         }
 
-
     }
+
 
     public void BeginGame()
     {
         LeftPaddle = new Paddle("Left");
         RightPaddle = new Paddle("Right");
-        puck = new Puck(this, LeftPaddle, RightPaddle);
+        puck = new Puck(this, LeftPaddle, RightPaddle,0,0);
 
     }
 
@@ -205,9 +213,41 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
           g.drawString("Press Space To Play",WIDTH/2 - 120,430);
 
 
+    }
+
+    public void showWinningScore(Graphics g)
+    {
+
+        if(puck.getLeftPaddleScore() == 7)
+        {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Times New Roman",Font.PLAIN,50));
+            g.drawString("Left Player Wins!!", WIDTH/4 + 20,HEIGHT/2);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Times New Roman",Font.PLAIN,35));
+            g.drawString("Press Space To Play Another Game", WIDTH/5,HEIGHT/2 + 50);
+
+        }
+
+        else if(puck.getRightPaddleScore() == 7)
+        {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Times New Roman",Font.PLAIN,50));
+            g.drawString("Right Player Wins!!", WIDTH/4 + 20,HEIGHT/2);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Times New Roman",Font.PLAIN,35));
+            g.drawString("Press Space To Play Another Game", WIDTH/5,HEIGHT/2 + 50);
 
 
-
+        }
 
     }
 
@@ -236,9 +276,21 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         {
             z = true;
         }
+
+        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            if(showMainMenu == false || showScores == true)
+            showMainMenu = true;
+            showScores=false;
+        }
+
         else if(e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-          showMainMenu = false;
+            if(showMainMenu == true || showScores == true)
+
+            showScores=false;
+           showMainMenu = false;
+           BeginGame();
         }
 
 
@@ -265,10 +317,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         {
             z = false;
         }
-        else if(e.getKeyCode() == KeyEvent.VK_SPACE)
-        {
-            showMainMenu =false;
-        }
+
         else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
         {
             showMainMenu = true;
