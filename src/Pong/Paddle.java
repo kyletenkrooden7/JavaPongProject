@@ -141,6 +141,7 @@ public class Paddle {
 
     }
 
+
     /**
      * Method to get the y coordinate of the paddle
      * @return an int value specifying the x coordinate of the paddle
