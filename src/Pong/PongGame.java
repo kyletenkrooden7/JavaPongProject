@@ -32,7 +32,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                             //a and z allow you to move LeftPaddle up and down
                             // k and m allow you to move RightPaddle up and down
     private String Player1="", Player2="";
-    private String ListOfScores;
+    private String ListOfScores[];
     private boolean showScores;
 
 
@@ -62,7 +62,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         Window.addKeyListener(this);
         Window.add(this); //Adds the game panel to the window
 
-
         Window.setVisible(true);//sets everything to be visible, if not you wont see anything (JB moved this code as call to setVisible() should come after everything else in GUI construction)
 
         inputNames();
@@ -70,7 +69,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         BeginGame();
 
         timer.start();
-
 
         Window.pack(); //needed to mark sure that the GUI will appear as desired with the panels "preferred size"
                        //otherwise some of the right paddle will be missing and also the bottom of the panel
@@ -181,6 +179,14 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         Player2 = JOptionPane.showInputDialog("Player 2 Name: ");
 
     }
+
+    /*private void ListScores()
+    {
+        JOptionPane.showMessageDialog(null, "List of Player scores: ",
+                "List Of Player Scores", JOptionPane.INFORMATION_MESSAGE);
+    }*/
+
+
     public void MainMenu(Graphics g)
     {
          //image found here: https://us.123rf.com/450wm/maralingstad/maralingstad1509/maralingstad150900079/44860773-vector-flat-white-ping-pong-icon-on-dark-background.jpg?ver=6
@@ -233,7 +239,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
         }
 
-        else if(puck.getRightPaddleScore() == 7)
+       else if(puck.getRightPaddleScore() == 7)
         {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, PongGame.WIDTH, PongGame.HEIGHT);
@@ -246,8 +252,8 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
             g.setFont(new Font("Times New Roman",Font.PLAIN,35));
             g.drawString("Press Space To Play Another Game", WIDTH/5,HEIGHT/2 + 50);
 
-
         }
+
 
     }
 
@@ -280,7 +286,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
         {
             if(showMainMenu == false || showScores == true)
-            showMainMenu = true;
+                showMainMenu = true;
             showScores=false;
         }
 
@@ -288,9 +294,9 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         {
             if(showMainMenu == true || showScores == true)
 
-            showScores=false;
-           showMainMenu = false;
-           BeginGame();
+                showScores=false;
+            showMainMenu = false;
+            BeginGame();
         }
 
 
@@ -324,4 +330,19 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         }
 
     }
+
+
+   /* public String toString() {
+        String str="";
+
+         str+="List Of Scores: ";
+
+           // for(int i =0; i<ListOfScores.length();i++)
+           //{
+           //      str += ListOfScores[i];
+            //}
+
+
+        return str;
+    }*/
 }

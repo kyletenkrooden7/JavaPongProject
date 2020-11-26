@@ -20,7 +20,6 @@ public class Puck {
 
     public Puck(PongGame pongGame, Paddle LeftPaddle, Paddle RightPaddle, int LeftPaddleScore, int RightPaddleScore)
     {
-
         setPongGame(pongGame);
         setLeftPaddle(LeftPaddle);
         setRightPaddle(RightPaddle);
@@ -51,12 +50,9 @@ public class Puck {
 
         }
 
-
-
             if (PaddleHit(LeftPaddle) == "hit")
             {
                 hit++;
-                System.out.println(hit);
                 this.PuckXDirection *= -1;
                 this.PuckYDirection *= ((Math.random()*-1) +0.5);
 
@@ -111,7 +107,6 @@ public class Puck {
                 {
                     this.PuckYDirection*=-1.7;
                 }
-
 
                 else if(hit ==14)
                 {
@@ -191,7 +186,7 @@ public class Puck {
         g.drawString(String.valueOf(LeftPaddleScore), 0 + (pongGame.WIDTH/10), 50);
         g.drawString(String.valueOf(RightPaddleScore), pongGame.WIDTH - (pongGame.WIDTH/8), 50);
 
-        if(getRightPaddleScore() == 2 || getLeftPaddleScore() == 2)
+        if(getRightPaddleScore() == 7 || getLeftPaddleScore() == 7)
         {
             showWinningScore=true;
 
