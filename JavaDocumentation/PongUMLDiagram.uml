@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Pong</OriginalElement>
+  <nodes>
+    <node x="-17.824267782426887" y="256.7719665271967">Pong.Puck</node>
+    <node x="124.85178571428568" y="0.0">Pong.Paddle</node>
+    <node x="130.79622710249726" y="716.6528214907246">Pong.PongGame</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.8488262910798121" x="509.86836283185846" y="260.82190265486724" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
