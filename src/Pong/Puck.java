@@ -16,8 +16,6 @@ public class Puck {
     private boolean showWinningScore=false;
 
 
-
-
     public Puck(PongGame pongGame, Paddle LeftPaddle, Paddle RightPaddle, int LeftPaddleScore, int RightPaddleScore)
     {
         setPongGame(pongGame);

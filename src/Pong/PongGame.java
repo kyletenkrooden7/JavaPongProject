@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 
 /*****************************************************
@@ -32,7 +33,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                             //a and z allow you to move LeftPaddle up and down
                             // k and m allow you to move RightPaddle up and down
     private String Player1="", Player2="";
-    private String ListOfScores[];
+    private ArrayList ListOfScores = new ArrayList();
     private boolean showScores;
 
 
@@ -40,6 +41,16 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public PongGame()
     {
 
+        /**
+         * Knowledge of timer class found here: https://www.educative.io/edpresso/what-is-a-timer-class-in-java
+         *  Title:    PongGame.java Timer class
+         *  Author: NA
+         *  Site owner/sponsor:  NA
+         *  Date: 13/11/2020
+         *  Code version:  NA
+         *  Availability:  NA
+         * Modified:  Understood syntax, code implemented from there
+         */
         Timer timer= new Timer(30,this); // adding a timer to make objects move on screen (The more modern way to the thread class)
          // without the timer, objects will not move on the screen!
         JFrame Window = new JFrame(); //makes a new JFrame called window (Acts as container)
@@ -81,6 +92,8 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     {
         PongGame pongGame = new PongGame();//creates a new instance of the pong game
 
+
+
     }
 
     public void render(Graphics g) {
@@ -121,6 +134,8 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         if(showScores == true)
         {
           showWinningScore(g);
+
+
         }
 
     }
@@ -223,7 +238,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     public void showWinningScore(Graphics g)
     {
-
         if(puck.getLeftPaddleScore() == 7)
         {
             g.setColor(Color.BLACK);
@@ -236,6 +250,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
             g.setColor(Color.WHITE);
             g.setFont(new Font("Times New Roman",Font.PLAIN,35));
             g.drawString("Press Space To Play Another Game", WIDTH/5,HEIGHT/2 + 50);
+
 
         }
 
@@ -254,7 +269,16 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
         }
 
+           // ListOfScores.add("Left Player :  " + puck.getLeftPaddleScore() + " - " + "Right Player : " + puck.getRightPaddleScore());
 
+
+        //System.out.println(ListOfScores);
+    }
+
+    private void DisplayListOfScores()
+    {
+
+        System.out.println(ListOfScores);
     }
 
     @Override
@@ -296,7 +320,12 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
                 showScores=false;
             showMainMenu = false;
+
             BeginGame();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S)
+        {
+            DisplayListOfScores();
         }
 
 
