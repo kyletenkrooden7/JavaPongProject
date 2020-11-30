@@ -33,7 +33,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                             //a and z allow you to move LeftPaddle up and down
                             // k and m allow you to move RightPaddle up and down
     private String Player1="", Player2="";
-    private ArrayList<String> ListOfScores = new ArrayList<String>();
+    private ArrayList<String> ListOfScores = new ArrayList<String>(); //arraylist with generics(only capable of storing String type)
     private boolean showScores;
 
 
@@ -90,9 +90,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public static void main(String[] args) //main method
     {
         PongGame pongGame = new PongGame();//creates a new instance of the pong game
-
-
-
     }
 
     public void render(Graphics g) {
@@ -106,7 +103,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
          *    Date: 13/11/2020
          *    Code version:  NA
          *    Availability:  NA
-         *        Modified:  obtained understanding of class API, code implemented from there
+         *    Modified:  obtained understanding of class API, code implemented from there
          // *****************************************************/
 
         g.setColor(Color.BLACK); //predefined setColor function to set colour of input argument g to black
@@ -138,7 +135,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     }
 
-
     public void BeginGame()
     {
         LeftPaddle = new Paddle("Left");
@@ -156,8 +152,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
         repaint();
     }
-
-
     //JB - copied from the original Renderer class and modified slightly
 
     public void paintComponent(Graphics g)
@@ -189,10 +183,22 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     private void inputNames()
     {
         Player1 = JOptionPane.showInputDialog("Player 1 Name: ");
+
+        if(Player1==null)
+            Player1="";
+
+        while(Player1.length() > 6)
+            Player1 = JOptionPane.showInputDialog("Name too long, please re-enter: ");
+
         Player2 = JOptionPane.showInputDialog("Player 2 Name: ");
 
-    }
+        if(Player2==null)
+            Player2="";
 
+        while(Player2.length() > 6)
+            Player2 = JOptionPane.showInputDialog("Name too long, please re-enter: ");
+
+    }
 
     public void MainMenu(Graphics g)
     {
@@ -200,12 +206,9 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
          ImageIcon pongImage = new ImageIcon("C:\\Users\\Kyle Tenkrooden\\IdeaProjects\\PongProject\\PongProject\\src\\Pong\\MainMenuPicture.jpg");
          pongImage.paintIcon(this,g,WIDTH/4,HEIGHT/20); //watched short youtube tutorial on this: https://www.youtube.com/watch?v=UXLOZshtC3I
 
-
          g.setColor(Color.WHITE);
          g.setFont(new Font("Calibri", 1, 40));
          g.drawString("Welcome To Pong",WIDTH/2 - 150,80);
-
-
 
          if(Player1 == null || Player2 == null)
          {
@@ -213,7 +216,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                Player2="";
          }
 
-             g.setColor(Color.RED);
+          g.setColor(Color.RED);
           g.setFont(new Font("Calibri", 1, 20));
           g.drawString(Player1,WIDTH/4 - WIDTH/8,80);
 
@@ -317,6 +320,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
             if(showMainMenu == false || showScores == true)
                 showMainMenu = true;
             showScores=false;
+            inputNames();
         }
 
         else if(e.getKeyCode() == KeyEvent.VK_SPACE)
@@ -354,7 +358,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         {
             showMainMenu = true;
         }
-
     }
 
 }
