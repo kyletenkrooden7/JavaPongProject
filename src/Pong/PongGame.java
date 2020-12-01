@@ -53,6 +53,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
          * Modified:  Understood syntax, code implemented from there
          */
 
+
         Timer timer= new Timer(30,this); // adding a timer to make objects move on screen (The more modern way to the thread class)
          // without the timer, objects will not move on the screen!
         JFrame Window = new JFrame(); //makes a new JFrame called window (Acts as container)
@@ -285,26 +286,40 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         }*/
         String text = "";
 
-        AddScore();
+          AddScore();
 
         if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
         {
         File inFile	= new File("scores_list.data");
 
         try {
-            FileInputStream inStream = new FileInputStream(inFile);
 
-            ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+            if(inFile.exists())
+            {
+                FileInputStream inStream = new FileInputStream(inFile);
 
-            ArrayList<String> mixtureOfObjects = (ArrayList<String>) objectInStream.readObject();
+                ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+
+                ArrayList<String> ListOfScores = (ArrayList<String>) objectInStream.readObject();
 
 
-                for (String str : mixtureOfObjects)
+                for (String str : ListOfScores)
                     text += str + "\n";
 
-            JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
 
-            inStream.close();
+                inStream.close();
+            }
+
+            else {
+                inFile.createNewFile();
+
+              //  for (String str : ListOfScores)
+               //     text += str + "\n";
+
+               // JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+
+            }
         }
         catch(FileNotFoundException fnfe){
             fnfe.printStackTrace();
@@ -332,6 +347,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     private void AddScore()
     {
         File outFile = new File("scores_list.data");
+
         try {
             FileOutputStream outStream = new FileOutputStream(outFile);
             ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
@@ -430,3 +446,108 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     }
 
 }
+
+
+   // private void DisplayListOfScores()
+  //  {
+       /* String text="";
+        AddScore();
+        if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
+        {
+            for(String str : ListOfScores)
+            {
+                text += str + "\n";
+            }
+            JOptionPane.showMessageDialog(null, text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+        }*/
+       /* String text = "";
+
+        AddScore();
+
+        if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
+        {
+            File inFile	= new File("scores_list.data");
+
+            try {
+
+                if(inFile.exists())
+                {
+                    FileInputStream inStream = new FileInputStream(inFile);
+
+                    ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+
+                    ArrayList<String> ListOfScores = (ArrayList<String>) objectInStream.readObject();
+
+
+                    for (String str : ListOfScores)
+                        text += str + "\n";
+
+                    JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+
+                    inStream.close();
+                }
+
+                else {
+                    inFile.createNewFile();
+
+                    //  for (String str : ListOfScores)
+                    //     text += str + "\n";
+
+                    // JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            }
+            catch(FileNotFoundException fnfe){
+                fnfe.printStackTrace();
+                JOptionPane.showMessageDialog(null,"The File could not be found!",
+                        "Problem Finding File",JOptionPane.ERROR_MESSAGE);
+            }
+            catch(IOException ioe){
+                ioe.printStackTrace();
+                JOptionPane.showMessageDialog(null,"The File could not be read!",
+                        "Problem Reading From File",JOptionPane.ERROR_MESSAGE);
+            }
+            catch (ClassNotFoundException cnfe) {
+                cnfe.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Could not find the appropriate class!",
+                        "Problem Finding the Class!",JOptionPane.ERROR_MESSAGE);
+            }
+            catch (ClassCastException cce) {
+                cce.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Could not convert the object to the appropriate class!",
+                        "Problem Converting Object!",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void AddScore()
+    {
+        File outFile = new File("scores_list.data");
+
+        try {
+            FileOutputStream outStream = new FileOutputStream(outFile);
+            ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
+            if (puck.getRightPaddleScore() == 7 || puck.getLeftPaddleScore() == 7) {
+                ArrayList<String> ListOfScores = new ArrayList<>();
+
+                ListOfScores.add(Player1 + " : " + puck.getLeftPaddleScore() + " - " + Player2 + " : " + puck.getRightPaddleScore());
+                //ListOfScores.add(Player1 + " : " + puck.getLeftPaddleScore() + " - " + Player2 + " : " + puck.getRightPaddleScore());
+
+                objectOutStream.writeObject(ListOfScores);
+                outStream.close();
+            }
+        }
+
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getStackTrace());
+            JOptionPane.showMessageDialog(null,"The File could not be found!",
+                    "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+        }
+        catch(IOException ioe){
+            System.out.println(ioe.getStackTrace());
+            JOptionPane.showMessageDialog(null," The File could not be written!",
+                    "Problem Writing to File!",JOptionPane.ERROR_MESSAGE);
+        }
+
+    }*/
+
