@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.io.*;
 
 
 /*****************************************************
@@ -90,9 +91,12 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     public static void main(String[] args) //main method
     {
         PongGame pongGame = new PongGame();//creates a new instance of the pong game
+
+
     }
 
     public void render(Graphics g) {
+
         //JB - just ensure you use the "How to Cite Source Code" document to put in this reference in the standard way (as I did above)
 
         /*****************************************************
@@ -140,6 +144,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         LeftPaddle = new Paddle("Left");
         RightPaddle = new Paddle("Right");
         puck = new Puck(this, LeftPaddle, RightPaddle,0,0);
+
 
     }
 
@@ -268,7 +273,7 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
     private void DisplayListOfScores()
     {
-        String text="";
+       /* String text="";
         AddScore();
         if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
         {
@@ -277,15 +282,79 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
                 text += str + "\n";
             }
             JOptionPane.showMessageDialog(null, text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
-        }
+        }*/
+        String text = "";
 
+        AddScore();
+
+        if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
+        {
+        File inFile	= new File("scores_list.data");
+
+        try {
+            FileInputStream inStream = new FileInputStream(inFile);
+
+            ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+
+            ArrayList<String> mixtureOfObjects = (ArrayList<String>) objectInStream.readObject();
+
+
+                for (String str : mixtureOfObjects)
+                    text += str + "\n";
+
+            JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+
+            inStream.close();
+        }
+        catch(FileNotFoundException fnfe){
+            fnfe.printStackTrace();
+            JOptionPane.showMessageDialog(null,"The File could not be found!",
+                    "Problem Finding File",JOptionPane.ERROR_MESSAGE);
+        }
+        catch(IOException ioe){
+            ioe.printStackTrace();
+            JOptionPane.showMessageDialog(null,"The File could not be read!",
+                    "Problem Reading From File",JOptionPane.ERROR_MESSAGE);
+        }
+        catch (ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Could not find the appropriate class!",
+                    "Problem Finding the Class!",JOptionPane.ERROR_MESSAGE);
+        }
+        catch (ClassCastException cce) {
+            cce.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Could not convert the object to the appropriate class!",
+                    "Problem Converting Object!",JOptionPane.ERROR_MESSAGE);
+        }
+      }
     }
 
     private void AddScore()
     {
-        if(puck.getRightPaddleScore() ==7 || puck.getLeftPaddleScore() == 7)
-        {
-            ListOfScores.add(Player1 + " : " + puck.getLeftPaddleScore() + " - " + Player2 + " : " + puck.getRightPaddleScore());
+        File outFile = new File("scores_list.data");
+        try {
+            FileOutputStream outStream = new FileOutputStream(outFile);
+            ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
+            if (puck.getRightPaddleScore() == 7 || puck.getLeftPaddleScore() == 7) {
+                ArrayList<String> ListOfScores = new ArrayList<>();
+
+                ListOfScores.add(Player1 + " : " + puck.getLeftPaddleScore() + " - " + Player2 + " : " + puck.getRightPaddleScore());
+                //ListOfScores.add(Player1 + " : " + puck.getLeftPaddleScore() + " - " + Player2 + " : " + puck.getRightPaddleScore());
+
+                objectOutStream.writeObject(ListOfScores);
+                outStream.close();
+            }
+        }
+
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getStackTrace());
+            JOptionPane.showMessageDialog(null,"The File could not be found!",
+                    "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+        }
+        catch(IOException ioe){
+            System.out.println(ioe.getStackTrace());
+            JOptionPane.showMessageDialog(null," The File could not be written!",
+                    "Problem Writing to File!",JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -325,11 +394,11 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
         else if(e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-            if(showMainMenu == true || showScores == true)
+            if(showMainMenu == true || showScores == true) {
                 DisplayListOfScores();
-                showScores=false;
+                showScores = false;
                 showMainMenu = false;
-
+            }
             BeginGame();
         }
     }
