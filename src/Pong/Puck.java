@@ -76,17 +76,15 @@ public class Puck {
                     PuckSpeed--;
                 }
 
-
             }
 
             else if (PaddleHit(LeftPaddle) == "No hit")
             {
                 if(this.x < 0)
                 {
-                //System.out.println("Right Paddle Score");
-                NewPuck();
-                hit = 0;
-                RightPaddleScore++;
+                  NewPuck();
+                  hit = 0;
+                  RightPaddleScore++;
                 }
             }
 
@@ -133,11 +131,12 @@ public class Puck {
 
          if(PuckXDirection < 0) //ball moving left
           {
+              //collision with left paddle
               if(this.x <= getLeftPaddle().getX() + getLeftPaddle().getPaddleWidth() &&
-                 this.x + this.PuckWidth + this.y >= getLeftPaddle().getY() &&
-                 this.y <= getLeftPaddle().getY() + getLeftPaddle().getPaddleHeight())
+                      this.y < getLeftPaddle().getY() + getLeftPaddle().getPaddleHeight() && this.y +
+                           PuckHeight > getLeftPaddle().getY())
 
-                 result = "hit";
+                  result = "hit";
 
               else
                  result = "No hit";
@@ -148,20 +147,22 @@ public class Puck {
 
         else if (PuckXDirection > 0) //ball moving to the right
         {
-            if (this.x + this.PuckWidth >= getRightPaddle().getX() && this.x <= getRightPaddle().getX() &&
-                this.y >= getRightPaddle().getY() && this.y <= getRightPaddle().getY() +
-                getRightPaddle().getPaddleHeight())
+            //collision with right paddle
+            if(this.x + this.PuckWidth >= getRightPaddle().getX() &&
+                    this.x <= getRightPaddle().getX() && this.y < getRightPaddle().getY()
+                    + getRightPaddle().getPaddleHeight() && this.y +
+                    PuckHeight > getRightPaddle().getY())
 
                 result = "hit";
 
             else
+
                 result = "No hit";
         }
 
       return result;
 
     }
-
 
     public void NewPuck()
     {

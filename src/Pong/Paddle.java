@@ -86,7 +86,6 @@ public class Paddle {
 
     }
 
-
 //JB - End of [non-original or refactored] code
 
     /**
@@ -140,7 +139,6 @@ public class Paddle {
         }
 
     }
-
 
     /**
      * Method to get the y coordinate of the paddle
