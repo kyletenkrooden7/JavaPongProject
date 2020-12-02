@@ -31,7 +31,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
     //a and z allow you to move LeftPaddle up and down
     // k and m allow you to move RightPaddle up and down
     private String Player1="", Player2="";
-    private ArrayList<String> ListOfScores = new ArrayList<String>(); //arraylist with generics(only capable of storing String type)
     private boolean showScores;
     String text = "";
 
@@ -83,9 +82,6 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
         Window.pack(); //needed to mark sure that the GUI will appear as desired with the panels "preferred size"
         //otherwise some of the right paddle will be missing and also the bottom of the panel
     }
-
-
-
 
     public static void main(String[] args) //main method
     {
@@ -282,12 +278,12 @@ public class PongGame extends JPanel implements ActionListener, KeyListener {
 
                     ObjectInputStream objectInStream = new ObjectInputStream(inStream);
 
-                    ArrayList<String> ListOfScores = (ArrayList<String>) objectInStream.readObject();
+                    ArrayList<String> ListOfScores = (ArrayList<String>) objectInStream.readObject(); //arraylist with generics(only capable of storing String type)
 
                     for (String str : ListOfScores)
                         text += str + "\n";
 
-                    JOptionPane.showMessageDialog(null, "Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "List Of Scores: \n" + text, "List Of Scores", JOptionPane.INFORMATION_MESSAGE);
 
                     inStream.close();
                 }

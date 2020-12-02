@@ -143,8 +143,6 @@ public class Puck {
 
           }
 
-       // return "";
-
         else if (PuckXDirection > 0) //ball moving to the right
         {
             //collision with right paddle
